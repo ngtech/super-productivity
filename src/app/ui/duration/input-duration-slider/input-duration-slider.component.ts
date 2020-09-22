@@ -23,8 +23,7 @@ import { T } from '../../../t.const';
   animations: [dotAnimation],
 })
 export class InputDurationSliderComponent implements OnInit, OnDestroy {
-  // tslint:disable-next-line:typedef
-  T = T;
+  T: typeof T = T;
   minutesBefore: number = 0;
   dots: any[] = [];
   uid: string = 'duration-input-slider' + shortid();
@@ -166,6 +165,8 @@ export class InputDurationSliderComponent implements OnInit, OnDestroy {
     if (hours > 12) {
       hours = 12;
     }
+    console.log(hours);
+
     this.dots = new Array(hours);
   }
 
@@ -224,6 +225,7 @@ export class InputDurationSliderComponent implements OnInit, OnDestroy {
   }
 
   setRotationFromValue(val: number = this._model) {
+    console.log(val);
     const momentVal = moment.duration({
       milliseconds: val
     });

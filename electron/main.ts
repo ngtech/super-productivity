@@ -18,6 +18,7 @@ import { backupData } from './backup';
 import { JiraCfg } from '../src/app/features/issue/providers/jira/jira.model';
 import { KeyboardConfig } from '../src/app/features/config/global-config.model';
 import lockscreen from './lockscreen';
+import { lazySetInterval } from './lazy-set-interval';
 
 const ICONS_FOLDER = __dirname + '/assets/icons/';
 const IS_MAC = process.platform === 'darwin';
@@ -130,26 +131,30 @@ appIN.on('ready', () => {
   const checkIdle = () => sendIdleMsgIfOverMin(powerMonitor.getSystemIdleTime() * 1000);
 
   // init time tracking interval
-  setInterval(checkIdle, CONFIG.IDLE_PING_INTERVAL);
+  lazySetInterval(checkIdle, CONFIG.IDLE_PING_INTERVAL);
 
   powerMonitor.on('suspend', () => {
     isLocked = true;
     suspendStart = Date.now();
+    mainWin.webContents.send(IPC.SUSPEND);
   });
 
   powerMonitor.on('lock-screen', () => {
     isLocked = true;
     suspendStart = Date.now();
+    mainWin.webContents.send(IPC.SUSPEND);
   });
 
   powerMonitor.on('resume', () => {
     isLocked = false;
     sendIdleMsgIfOverMin(Date.now() - suspendStart);
+    mainWin.webContents.send(IPC.RESUME);
   });
 
   powerMonitor.on('unlock-screen', () => {
     isLocked = false;
     sendIdleMsgIfOverMin(Date.now() - suspendStart);
+    mainWin.webContents.send(IPC.RESUME);
   });
 });
 

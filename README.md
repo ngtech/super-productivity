@@ -13,11 +13,6 @@
        src="https://img.shields.io/github/downloads/johannesjo/super-productivity/total"
        align="center">
 </a>
-<a href="https://spectrum.chat/super-productivity">
-  <img alt="Join the community on Spectrum"
-       align="center"
-       src="https://withspectrum.github.io/badge/badge.svg" />
-</a>
 <a href="https://www.reddit.com/r/selfhosted/comments/by7bcu/super_productivity_is_an_open_source_todo_list/?ref=readnext">
   <img alt="On reddit"
        src="https://img.shields.io/badge/on-reddit-orange.svg?style=flat-square"
@@ -169,3 +164,7 @@ You can specify a custom folder for saving your data by starting the application
 ```
 superproductivity --user-data-dir=/path/to/my/data
 ```
+
+## Automatic Backups
+For the desktop version automatic backups are stored per default. You can see the backup folder location printed out when you start the app from the command line. 
+Once you located a backup you can restore it on the settings page under`Sync & Export/Import/Export/Import from file`.
